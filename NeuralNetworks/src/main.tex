@@ -1,0 +1,204 @@
+\documentclass[10pt]{beamer}
+\usetheme{metropolis}
+% all imports
+\input{all_imports}
+
+\AtBeginEnvironment{quote}{\singlespacing}
+
+% new commands
+\input{all_new_commands}
+
+% definitions
+\input{definitions/colors}
+\input{definitions/styles}
+
+\input{header}
+
+\begin{document}
+\nocite{DeepLearningbook}
+\nocite{xiao2017/online}
+\maketitle
+
+\section{Function}
+
+\begin{frame}[fragile]{Revisão: função sigmoide}
+\input{TikzFiles/Sigmoid}
+\end{frame}
+
+\begin{frame}[fragile]{ReLU: Rectified Linear Units}
+\input{TikzFiles/ReLU}
+\end{frame}
+
+\begin{frame}[fragile]{Revisão: função softmax}
+\input{TikzFiles/Softmax}
+\end{frame}
+
+\begin{frame}{Revisão: entropia}
+\input{TikzFiles/Entropy1}
+\end{frame}
+
+\begin{frame}{Revisão: entropia}
+\input{TikzFiles/Entropy2}
+\end{frame}
+
+\begin{frame}{Revisão: divergência Kullback-Leibler}
+\input{TikzFiles/KullbackLeibler}
+\end{frame}
+
+
+\section{NN}
+
+\begin{frame}[fragile]{Perceptron}
+\input{TikzFiles/perceptron}
+\end{frame}
+
+\begin{frame}[fragile]{Rede neural: versão antiga}
+\input{TikzFiles/OldNN1}
+\end{frame}
+
+\begin{frame}[fragile]{Rede neural: versão antiga}
+\input{TikzFiles/OldNN2}
+\end{frame}
+
+\begin{frame}[fragile]{Rede neural: versão antiga}
+\begin{center}
+\input{TikzFiles/OldNN3}
+\end{center}
+\end{frame}
+
+\begin{frame}{Rede neural}
+\input{TikzFiles/NN}
+\end{frame}
+
+\begin{frame}{Rede neural profunda}
+\input{TikzFiles/DeepNN}
+\end{frame}
+
+
+\begin{frame}{Classificação com uma rede neural}
+\input{TikzFiles/DFNclassification}
+\end{frame}
+
+\section{Computational Graph}
+
+\begin{frame}[fragile]{Grafo de computação}
+\input{TikzFiles/Compgraph1}
+\end{frame}
+
+\begin{frame}[fragile]{Grafo de computação}
+\input{TikzFiles/Compgraph2}
+\end{frame}
+
+
+\begin{frame}[fragile]{Grafo de computação}
+\input{TikzFiles/Compgraph3}
+\end{frame}
+
+\begin{frame}[fragile]{Grafo de computação}
+\input{TikzFiles/Compgraph4}
+\end{frame}
+
+\section{Example with images}
+
+
+\begin{frame}{Fashion MNIST}
+\input{TikzFiles/fashionMNIST}
+\end{frame}
+
+\begin{frame}{Fashion MNIST}
+\input{TikzFiles/Kernel_image_pro}
+\end{frame}
+
+
+\section{Dropout}
+
+
+\begin{frame}[fragile]{Dropout}
+\input{TikzFiles/Dropout1}
+\end{frame}
+
+\begin{frame}[fragile]{Dropout}
+\input{TikzFiles/Dropout2}
+\end{frame}
+
+\section{Back Propagation}
+
+\begin{frame}{Operações simples: soma}
+\input{TikzFiles/soma}
+\end{frame}
+
+\begin{frame}{Operações simples: multiplicação}
+\input{TikzFiles/mult}
+\end{frame}
+
+\begin{frame}{Operações simples: divisão}
+\input{TikzFiles/div}
+\end{frame}
+
+\begin{frame}{Operações simples: negativo}
+\input{TikzFiles/minus1}
+\end{frame}
+
+\begin{frame}{Operações simples: exponenciação}
+\input{TikzFiles/exp}
+\end{frame}
+
+\begin{frame}{Operações simples: logarítimo}
+\input{TikzFiles/log}
+\end{frame}
+
+\begin{frame}{Aplicando a regra da cadeia}
+\input{TikzFiles/chain_rule_nodes}
+\end{frame}
+
+
+\begin{frame}{Exemplo}
+\input{TikzFiles/multiple_paths}
+\end{frame}
+
+\begin{frame}{Grafo de $L(\hat{\vect{y}}, \vect{y})$}
+\input{TikzFiles/expanded_graph_0}
+\end{frame}
+
+\begin{frame}{Derivada parcial de L com respeito a $b_1$: 2}
+\input{TikzFiles/b1_path2_grad}
+\end{frame}
+
+\section{Values}
+
+
+\begin{frame}{Exemplo}
+\input{TikzFiles/examples_values}
+\end{frame}
+
+\begin{frame}{Calculando em Lote}
+\input{TikzFiles/batch_example_values}
+\end{frame}
+
+
+\begin{frame}{Calulando em lote}
+\input{TikzFiles/batch_graph}
+\end{frame}
+
+\section{Matrix}
+
+\begin{frame}{Exemplo de imagem}
+\input{TikzFiles/5x5}
+\end{frame}
+
+\begin{frame}{Exemplo de filtro}
+\input{TikzFiles/3x3}
+\end{frame}
+
+\begin{frame}{Feature map}
+\input{TikzFiles/feature_map}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{References}
+
+  \bibliography{my_references}
+  \bibliographystyle{abbrv}
+
+\end{frame}
+
+\end{document}
