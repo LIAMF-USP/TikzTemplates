@@ -3,7 +3,7 @@
 ![alt text](images/cc-logo.png "CC")
 
 
-Licensed under [creative commons](https://github.com/MLIME/12aMostra/blob/master/presentation/LICENSE)
+Licensed under [creative commons](https://github.com/LIAMF-USP/TikzTemplates/blob/master/NeuralNetworks/LICENSE)
 
 ## Usage
 
