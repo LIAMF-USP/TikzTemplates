@@ -1,0 +1,22 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.40}{
+\begin{tikzpicture}[auto]
+
+% RNN state cell =============================
+\node[state] (h) {$\vect{h}$};
+\node[op, below=30pt of h] (x) {$\vect{x}$};
+\node[op, above=30pt of h] (yhat) {$\hat{\vect{y}}$};
+
+
+
+% edges
+\path[tedge] (x) edge node[below right= -4pt] {$\vect{U}$}  (h) ;
+\path[tedge] (h) edge [out=-400,in=-320,looseness=8, distance=125pt] node[above right] {$\vect{W}$} (h);
+\path[tedge] (h) edge node[below right = -4pt] {$\vect{V}$} (yhat);
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

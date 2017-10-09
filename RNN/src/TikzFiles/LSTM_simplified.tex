@@ -1,0 +1,38 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.40}{
+\begin{tikzpicture}[auto]
+
+% RNN state cell =============================
+\node[state] (h) {$\vect{h}$};
+\node[op, below=30pt of h] (x) {$\vect{x}$};
+\node[state, above left=10pt and 10pt of h] (C) {$\vect{C}$};
+\node[textonly, above right=5pt and 5pt of h] (inv1) {};
+\node[op, above=50pt of h] (yhat) {$\hat{\vect{y}}$};
+\node[textonly, right=55pt of C] (inv2) {};
+\node[textonly, right=30pt of h] (inv3) {};
+
+
+
+%% namedscope LSTM cell
+\begin{scope}[on background layer]
+\coordinate (p1) at (inv1.north);
+\coordinate (p2) at (h.south east);
+\coordinate (p3) at (C.north west);
+\tkzCircumCenter(p1,p2,p3)
+\tkzGetPoint{O}
+\tkzDrawCircle[draw=orange, line width=1.5pt, fill=orange!60](O,p1)
+\end{scope}
+
+
+% edges
+\path[tedge] (x) -- (h) ;
+\path[tedge] (h) -- (yhat);
+\path[tedge] (h) -- (inv3);
+\path[tedge] (C) -- (inv2);
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

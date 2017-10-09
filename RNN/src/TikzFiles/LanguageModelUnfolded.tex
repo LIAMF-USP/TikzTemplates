@@ -1,0 +1,51 @@
+% RNN STATE CELL ====================================
+\newcommand{\rnnSimple}[4]{
+
+% operations
+\node[state, minimum size=40pt,#4] (h#3) {$\vect{h}^{#1}$};
+\node[op, minimum size=40pt, above=30pt of h#3] (yhat#3){$\hat{\vect{y}}^{#1}$};
+\node[op, minimum size=40pt,below=30pt of h#3] (e#3) {$\vect{e}^{#1}$};
+\node[textonly, below=0.1pt of e#3] {{\Large#2}};
+
+% edges
+\path[tedge] (e#3) edge node[below right= -4pt] {$\vect{U}$} (h#3);
+\path[tedge] (h#3) edge node[below right = -4pt] {$\vect{V}$} (yhat#3);
+}
+
+\begin{figure}[ht!]
+\hspace*{-1.0cm}
+\scalebox{0.8}{
+\begin{tikzpicture}[auto]
+
+% timestep 1
+\rnnSimple{(1)}{Yes}{t1}{}
+
+% % timestep 0
+\node[state, minimum size=40pt,left=50pt of ht1] (ht0) {$\vect{h}^{(0)}$};
+
+% % timestep 2
+\rnnSimple{(2)}{here}{t2}{right=50pt of ht1};
+
+
+% % timestep 2
+\rnnSimple{(3)}{we}{t3}{right=50pt of ht2};
+
+
+% % state transfers
+\path[tedge] (ht0) edge node[above right = 2pt] {$\vect{W}$} (ht1);
+\path[tedge] (ht1) edge node[above right = 2pt] {$\vect{W}$} (ht2);
+\path[tedge] (ht2) edge node[above right = 2pt] {$\vect{W}$} (ht3);
+
+% text
+\node[textonly, above=40pt of yhatt2] (result) {{\Large $P(x^{(4)}| \text{Yes, here, we})$}};
+
+% Arrow to result
+%  \path[tedge] (yhatt3)  edge node[bend right, out=-50, distance=25pt] (result);
+\draw[->, line width=1mm] [bend right, out=-50, distance=25pt](yhatt3.north) to  (result.east);
+%  \path[tedge] (yhatt3.north) to [bend right, out=-50, distance=25pt] (result.east);
+
+
+\end{tikzpicture}
+}%\scalebox
+\end{figure}
+

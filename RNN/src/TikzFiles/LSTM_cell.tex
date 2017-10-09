@@ -1,0 +1,63 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{0.75}{
+\begin{tikzpicture}[auto]
+
+% RNN state cell =============================
+\node[state] (h) {$\vect{h}$};
+\node[op, above right=25pt and 10pt of h] (add1) {$add(\vect{W}_{f},\vect{U}_{f})$};
+\node[op,right=25pt of add1] (add2) {$add(\vect{W}_{i},\vect{U}_{i})$};
+\node[op,right=25pt of add2] (add3) {$add(\vect{W}_{\tilde{c}},\vect{U}_{\tilde{c}})$};
+\node[op,right=25pt of add3] (add4) {$add(\vect{W}_{o},\vect{U}_{o})$};
+\node[op,above=20pt of add1] (f) {$\vect{f}$};
+\node[op,above=20pt of add2] (i) {$\vect{i}$};
+\node[op,above=20pt of add3] (tildec) {$\vect{\tilde{c}}$};
+\node[op,above=20pt of add4] (o) {$\vect{o}$};
+\node[op,above=20pt of f] (haddamar1) {$\circ$};
+\node[state,above left=20pt and 20pt of haddamar1] (C) {$\vect{C}$};
+\node[op,above right=20pt and 20pt of i] (haddamar2) {$\circ$};
+\node[state,above left=20pt and 20pt of haddamar2] (Cprime) {$\vect{C}^{\prime}$};
+\node[op, below right=3pt and 70pt of Cprime] (tanh) {$tanh$};
+\node[state, right=50pt of o] (hprime) {$\vect{h}^{\prime}$};
+\node[textonly,right=180pt of h] (inv1) {};
+\node[op, below=30pt of inv1] (x) {$\vect{x}$};
+\node[textonly, below=2pt of Cprime] (name1) {$+$};
+\node[textonly, below=2pt of hprime] (name2) {$\circ$};
+
+
+
+
+%% namedscope
+\node[draw=orange, fit= (C) (h) (hprime), line width=1.5pt, fill=orange!60, fill opacity=0.2] {};
+
+
+
+
+% edges
+\path[tedge] (x) to (add1);
+\path[tedge] (x)--(add2);
+\path[tedge] (x)--(add3);
+\path[tedge] (x)--(add4);
+\path[tedge] (h)--(add1);
+\path[tedge] (h) to [in=280, distance=5pt] (add2);
+\path[tedge] (h)to [in=280, distance=5pt](add3);
+\path[tedge] (h)to [in=280, distance=5pt](add4);
+\path[tedge] (add1) edge node[below right= -7pt] {$\;\; \Large{\sigma}$}  (f);
+\path[tedge] (add2) edge node[below right= -7pt] {$\;\; \Large{\sigma}$}  (i);
+\path[tedge] (add3) edge node[below right= -7pt] {$\;\; \Large{tanh}$}  (tildec);
+\path[tedge] (add4) edge node[below right= -7pt] {$\;\; \Large{\sigma}$}  (o);
+\path[tedge] (f)--(haddamar1);
+\path[tedge] (haddamar1)--(Cprime);
+\path[tedge] (C)--(haddamar1);
+\path[tedge] (i)--(haddamar2);
+\path[tedge] (tildec)--(haddamar2);
+\path[tedge] (Cprime)--(tanh);
+\path[tedge] (haddamar2)--(Cprime);
+\path[tedge] (tanh)--(hprime);
+\path[tedge] (tanh)--(hprime);
+\path[tedge] (o)--(hprime);
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

@@ -1,0 +1,120 @@
+\newcommand{\rnnstatecell}[4]{
+
+% operations
+\node[state, minimum size=40pt,#4] (hprime#3) {$\vect{h}^{#1}$};
+\node[op, minimum size=40pt,below=15pt of hprime#3] (a#3) {$\vect{a}^{#1}$};
+
+\node[noop, below left=10pt and 10pt of a#3] (noop-left#3) {};
+\node[state, minimum size=40pt, below left=12pt and 0.1pt of noop-left#3] (h#3) {$\vect{h}^{#2}$};
+\node[op, above left=8pt and 15pt of noop-left#3] (W#3) {$\vect{W}$};
+
+\node[noop, below right=10pt and 10pt of a#3] (noop-right#3) {};
+\node[op, below right=12pt and 0.05pt of noop-right#3] (U#3) {$\vect{U}$};
+
+% outer operations
+\node[op, minimum size=40pt, below=75pt of a#3] (x#3) {$\vect{x}^{#1}$};
+
+%% namedscope
+\begin{scope}[on background layer]
+\coordinate (p1) at (hprime#3.north);
+\coordinate (p2) at (U#3.south east);
+\coordinate (p3) at (h#3.south west);
+\tkzCircumCenter(p1,p2,p3)
+\tkzGetPoint{O}
+\tkzDrawCircle[draw=orange,line width=2pt, fill=orange!60](O,p1)
+\end{scope}
+
+% edges
+\path[tedge] (a#3) -- (hprime#3);
+\path[tedge] (noop-left#3) -- (a#3);
+\path[tedge] (noop-right#3) -- (a#3);
+\path[tedge] (W#3) -- (noop-left#3);
+\path[tedge] (h#3.north) to [bend left, out=70, distance=5pt] (noop-left#3.west);
+\path[tedge] (U#3.north) to [bend right, out=-50, distance=5pt] (noop-right#3.east);
+\path[tedge] (x#3) -- (noop-right#3);
+}
+
+\begin{figure}
+\centering
+
+\scalebox{0.42}{
+\begin{tikzpicture}[auto]
+
+% previous cell
+\rnnstatecell{(\tau-1)}{(\tau-2)}{prev}{}
+
+% past cells
+\node[textonly, left=60pt of Wprev] (dots) {{\Huge $\cdots$}};
+
+% past edge
+\path[tedge] (dots) to [out=10, in=-160] (hprev.west);
+
+
+% next cell
+\rnnstatecell{(\tau)}{(\tau-1)}{next}{right=230pt of hprimeprev}
+
+% state transfer
+\path[tedge] (hprimeprev.east) to [out=10, in=-160] (hnext.west);
+
+% loss
+\node[op, minimum size=40pt, above right=80pt and 40pt of hprimenext] (L) {$L^{(\tau)}$};
+\node[textonly, above=80pt of hprimenext] (ppp) {{\Huge $\cdots$}};
+
+% loss edges
+\path[tedge] (hprimenext.north) to [bend left, out=-110, in=100, distance=20pt] (ppp.west);
+\path[tedge] (ppp) -- (L);
+
+% gradients from time step tau 
+\visible<2->{\node[gradient, above right=1pt and 70pt of hprimenext] (grad-hprime) {$\grad{\vect{h}^{(\tau)}}{L^{(\tau)}}$};}
+\visible<3->{\node[textonly, right=0.1pt of grad-hprime] {$=\dotpPright{\vect{V}}{\hat{\vect{y}}^{(\tau)} - \vect{y}^{(\tau)}}$};}
+
+
+\visible<4->{\node[gradient, right=65pt of anext] (grad-a) {$\grad{\vect{a}^{(\tau)}}{L^{(\tau)}}$};}
+\visible<5->{\node[textonly, right=0.1pt of grad-a] {$=\left(\grad{\vect{h}^{(\tau)}}{L^{(\tau)}}\right)\circ\vect{h}^{(\tau)}\circ(1-\vect{h}^{(\tau)})$};}
+
+
+\visible<6->{\node[gradient, below right=0.1pt and 40pt of Unext] (grad-U) {$\grad{\vect{U}^{(\tau)}}{L^{(\tau)}}$};}
+\visible<7->{\node[textonly, right=0.1pt of grad-U] {$=\outerp{\grad{\vect{a}^{(\tau)}}{L^{(\tau)}}}{\vect{x}^{(\tau)}}$};}
+
+
+\visible<8->{\node[gradient, above left=70pt and 10pt of Wnext] (grad-W) {$\grad{\vect{W}^{(\tau)}}{L^{(\tau)}}$};}
+\visible<9->{\node[textonly, left=0.1pt of grad-W] {$\outerp{\grad{\vect{a^{(\tau)}}}{L^{(\tau)}}}{\vect{h}^{(\tau-1)}}=$};}
+
+
+% gradients from time step tau -1
+\visible<10->{\node[gradient, above left=60pt and 10pt of hprimeprev] (grad-hprimeprev) {$\grad{\vect{h}^{(\tau-1)}}{L^{(\tau)}}$};}
+\visible<11->{\node[textonly, left=0.1pt of grad-hprimeprev] {$\dotpPright{\vect{W}}{\grad{\vect{a}^{(\tau)}}{L^{(\tau)}}}=$};}
+
+
+\visible<12->{\node[gradient, below left=55pt and -20pt of hnext] (grad-a-prev) {$\grad{\vect{a}^{(\tau-1)}}{L^{(\tau)}}$};}
+\visible<13->{\node[textonly, right=0.1pt of grad-a-prev] {$=\left(\grad{\vect{h}^{(\tau-1)}}{L^{(\tau)}}\right)\circ\vect{h}^{(\tau-1)}\circ(1-\vect{h}^{(\tau-1)})$};}
+
+
+\visible<14->{\node[gradient, below left=20pt and 10pt of grad-a-prev] (grad-U-prev) {$\grad{\vect{U}^{(\tau-1)}}{L^{(\tau)}}$};}
+\visible<15->{\node[textonly, left=0.1pt of grad-U-prev] {$\outerp{\grad{\vect{a}^{(\tau-1)}}{L^{(\tau)}}}{\vect{x}^{(\tau-1)}}=$};}
+
+
+\visible<16->{\node[gradient, above left=70pt and 10pt of Wprev] (grad-W-prev) {$\grad{\vect{W}^{(\tau-1)}}{L^{(\tau)}}$};}
+\visible<17->{\node[textonly, left=0.1pt of grad-W-prev] {$\outerp{\grad{\vect{a^{(\tau-1)}}}{L^{(\tau)}}}{\vect{h}^{(\tau-2)}}=$};}
+
+\visible<18->{\node[gradient, below left=20pt and 10pt of hprev] (grad-hprev) {$\grad{\vect{h}^{(\tau-2)}}{L^{(\tau)}}$};}
+\visible<19->{\node[textonly, left=0.1pt of grad-hprev] {$\dotpPright{\vect{W}}{\grad{\vect{a}^{(\tau-1)}}{L^{(\tau)}}}=$};}
+
+
+
+% gradient's edges
+\visible<2->{\path[tedge] (hprimenext) -- (grad-hprime);}
+\visible<4->{\path[tedge] (anext) -- (grad-a);}
+\visible<6->{\path[tedge] (Unext) -- (grad-U);}
+\visible<8->{\path[tedge] (Wnext) -- (grad-W);}
+\visible<10->{\path[tedge] (hprimeprev) -- (grad-hprimeprev);}
+\visible<12->{\path[tedge] (aprev.east) to [out=10, in=-160] (grad-a-prev);}
+\visible<14->{\path[tedge] (Uprev) -- (grad-U-prev);}
+\visible<16->{\path[tedge] (Wprev) -- (grad-W-prev);}
+\visible<18->{\path[tedge] (hprev) -- (grad-hprev);}
+
+
+\end{tikzpicture}
+}%\scalebox
+\end{figure}
+

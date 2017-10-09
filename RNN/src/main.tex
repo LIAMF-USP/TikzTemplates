@@ -1,0 +1,91 @@
+\documentclass[10pt]{beamer}
+\usetheme{metropolis}
+% all imports
+\input{all_imports}
+
+\AtBeginEnvironment{quote}{\singlespacing}
+
+% new commands
+\input{all_new_commands}
+
+% definitions
+\input{definitions/colors}
+\input{definitions/styles}
+
+\input{header}
+
+\begin{document}
+\nocite{DeepLearningbook}
+
+
+\maketitle
+
+
+
+\section{RNN}
+
+\begin{frame}{RNN as a graph}
+\input{TikzFiles/RNNGraphExpanded}
+\end{frame}
+
+\begin{frame}{RNN as a graph}
+\input{TikzFiles/RNNSimplified}
+\end{frame}
+
+\begin{frame}{Unfolding the graph}
+\input{TikzFiles/RNNSimplifiedUnfolded}
+\end{frame}
+
+%\begin{frame}{RNN time unfolding}
+%\input{TikzFiles/rnn-time-unfolding}
+%\end{frame}
+
+%\begin{frame}{Chain rule: RNN graph}
+%\input{TikzFiles/rnn-backprop}
+%\end{frame}
+
+\section{Language model}
+
+\begin{frame}{The language model: graph}
+\input{TikzFiles/LanguageModelExpanded}
+\end{frame}
+
+\begin{frame}{The language model: graph}
+\input{TikzFiles/LanguageModelSimplified}
+\end{frame}
+
+\begin{frame}{The Language model: unfolding example}
+\input{TikzFiles/LanguageModelUnfolded}
+\end{frame}
+
+\section{LSTM}
+
+
+\begin{frame}{LSTM}
+\input{TikzFiles/LSTM_simplified}
+\end{frame}
+
+
+\begin{frame}{LSTM: unfolded model}
+\input{TikzFiles/LSTM_unfolded}
+\end{frame}
+
+
+\begin{frame}{Simplification}
+\input{TikzFiles/Add_op_simplified}
+\end{frame}
+
+
+\begin{frame}{LSTM: recurrence}
+\input{TikzFiles/LSTM_cell}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{References}
+
+  \bibliography{my_references}
+  \bibliographystyle{abbrv}
+
+\end{frame}
+
+\end{document}

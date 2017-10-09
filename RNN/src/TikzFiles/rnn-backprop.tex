@@ -1,0 +1,102 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{0.71}{
+\begin{tikzpicture}[auto]
+
+
+% RNN state cell =============================
+\node[state] (hprime) {$\myprime{\vect{h}}$};
+\node[op, below=15pt of hprime] (a) {$\vect{a}$};
+
+\node[noop, below left=10pt and 10pt of a] (noop-left) {};
+\node[state, below left=12pt and 0.1pt of noop-left] (h) {$\vect{h}$};
+\node[op, above left=8pt and 15pt of noop-left] (W) {$\vect{W}$};
+
+\node[noop, below right=10pt and 10pt of a] (noop-right) {};
+\node[op, below right=12pt and 0.05pt of noop-right] (U) {$\vect{U}$};
+
+% gradients
+% $\grad{\myprime{\vect{h}}}{L}$
+% $\outerp{\grad{\vect{a}}{L}}{\vect{x}}=$
+
+\visible<6->{\node[gradient, right=50pt of hprime] (grad-hprime) {$\grad{\myprime{\vect{h}}}{L}$};}
+\visible<7->{\node[textonly, right=0.1pt of grad-hprime] {$=\dotpPright{\vect{V}}{\grad{\vect{o}}{L}}$};}
+
+\visible<8->{\node[gradient, right=65pt of a] (grad-a) {$\grad{\vect{a}}{L}$};}
+\visible<9->{\node[textonly, right=0.1pt of grad-a] {$=\left(\grad{\myprime{\vect{h}}}{L}\right)\circ\myprime{\vect{h}}\circ(1-\myprime{\vect{h}})$};}
+
+\visible<10->{\node[gradient, right=40pt of U] (grad-U) {$\grad{\vect{U}}{L}$};}
+\visible<11->{\node[textonly, right=0.1pt of grad-U] {$=\outerp{\grad{\vect{a}}{L}}{\vect{x}}$};}
+
+\visible<12->{\node[gradient, left=30pt of W] (grad-W) {$\grad{\vect{W}}{L}$};}
+\visible<13->{\node[textonly, left=0.1pt of grad-W] {$\outerp{\grad{\vect{a}}{L}}{\vect{h}}=$};}
+
+\visible<14->{\node[gradient, left=30pt of h] (grad-h) {$\grad{\vect{h}}{L}$};}
+\visible<15->{\node[textonly, left=0.1pt of grad-h] {$\dotpPright{\vect{W}}{\grad{\vect{a}}{L}}=$};}
+
+% outer operations
+\node[op, below=75pt of a] (x) {$\vect{x}$};
+
+%% namedscope
+\begin{scope}[on background layer]
+\coordinate (p1) at (hprime.north);
+\coordinate (p2) at (U.south east);
+\coordinate (p3) at (h.south west);
+\tkzCircumCenter(p1,p2,p3)
+\tkzGetPoint{O}
+\tkzDrawCircle[draw=orange, line width=1.5pt, fill=orange!60](O,p1)
+\end{scope}
+
+% edges
+\visible<6->{\path[tedge] (hprime) -- (grad-hprime);}
+\visible<8->{\path[tedge] (a) -- (grad-a);}
+\visible<10->{\path[tedge] (U) -- (grad-U);}
+\visible<12->{\path[tedge] (W) -- (grad-W);}
+\visible<14->{\path[tedge] (h) -- (grad-h);}
+
+\path[tedge] (a) -- (hprime);
+\path[tedge] (noop-left) -- (a);
+\path[tedge] (noop-right) -- (a);
+\path[tedge] (W) -- (noop-left);
+\path[tedge] (h.north) to [bend left, out=70, distance=5pt] (noop-left.west);
+\path[tedge] (U.north) to [bend right, out=-50, distance=5pt] (noop-right.east);
+\path[tedge] (x) -- (noop-right);
+
+% RNN output cell =============================
+
+% operations
+\node[op, above=50pt of hprime] (o) {$\vect{o}$};
+\node[op, above=15pt of o] (yhat) {$\hat{\vect{y}}$};
+\node[op, below left=1pt and 10pt of o] (V) {$\vect{V}$};
+\node[op, right=50pt of yhat] (L) {$L$};
+\node[op, right=20pt of L] (y) {$\vect{y}$};
+
+% gradients
+\visible<4->{\node[gradient, left=20pt of V] (grad-V) {$\grad{\vect{V}}{L}$};}
+\visible<2->{\node[gradient, right=50pt of o] (grad-o) {$\grad{\vect{o}}{L}$};}
+\visible<3->{\node[textonly, right=0.1pt of grad-o] {$=\hat{\vect{y}}-\vect{y}$};}
+\visible<5->{\node[textonly, left=0.1pt of grad-V] {$\outerp{\grad{\vect{o}}{L}}{\myprime{\vect{h}}}=$};}
+
+% paths
+\path[tedge] (hprime) -- (o);
+\path[tedge] (o) -- (yhat);
+\path[tedge] (yhat) -- (L);
+\path[tedge] (y) -- (L);
+\visible<2->{\path[tedge] (o) -- (grad-o);}
+\path[tedge] (V.north) to [bend left, out=90, in=135, distance=10pt] (o.west);
+\visible<4->{\path[tedge] (V) -- (grad-V);}
+
+% namedscope
+\begin{scope}[on background layer]
+\coordinate (p4) at (yhat.north);
+\coordinate (p5) at (V.south west);
+\coordinate [right=35pt of o] (p6);
+\tkzCircumCenter(p4,p5,p6)
+\tkzGetPoint{O}
+\tkzDrawCircle[draw=orange, line width=1.5pt, fill=orange!60](O,p4)
+\end{scope}
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

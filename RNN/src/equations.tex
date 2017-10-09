@@ -1,0 +1,54 @@
+\begin{frame}{The problem of training RNN}
+Let's calculate $\grad{\vect{U}}{L^{(3)}}$:
+\begin{align*}
+\grad{\vect{U}}{L^{(3)}} &= \sum_{t=1}^{3}\grad{\vect{U}^{(t)}}{L^{(3)}}\\
+&= \grad{\vect{U}^{(1)}}{L^{(3)}} + \grad{\vect{U}^{(2)}}{L^{(3)}} + \grad{\vect{U}^{(3)}}{L^{(3)}}
+\end{align*}
+\end{frame}
+
+\begin{frame}{Calculating $\grad{\vect{U}^{(3)}}{L^{(3)}}$ }
+\begin{align*}
+\grad{\vect{U}^{(3)}}{L^{(3)}} &=\outerp{\grad{\vect{a}^{(3)}}{L^{(3)}}}{\vect{x}^{(3)}}\\
+%
+\visible<2->{&=\outerp{\left(\grad{\vect{h}^{(3)}}{L^{(3)}}\right)\circ\vect{h}^{(3)}\circ(1-\vect{h}^{(3)})}{\vect{x}^{(3)}}\\}
+%
+\visible<3->{&=\outerp{\left(\dotpPright{\vect{V}}{\hat{\vect{y}}^{(3)} - \vect{y}^{(3)}}\right)\circ\vect{h}^{(3)}\circ(1-\vect{h}^{(3)})}{\vect{x}^{(3)}}\\}
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{Calculating $\grad{\vect{U}^{(2)}}{L^{(3)}}$ }
+\footnotesize{
+\begin{align*}
+\grad{\vect{U}^{(2)}}{L^{(3)}} &=\outerp{\grad{\vect{a}^{(2)}}{L^{(3)}}}{\vect{x}^{(2)}}\\
+%
+\visible<2->{&=\outerp{\left(\grad{\vect{h}^{(2)}}{L^{(3)}}\right)\circ\vect{h}^{(2)}\circ(1-\vect{h}^{(2)})}{\vect{x}^{(2)}}\\}
+%
+\visible<3->{&=\outerp{\left(\dotpPright{\vect{W}}{\grad{\vect{a}^{(3)}}{L^{(3)}}}\right)\circ\vect{h}^{(2)}\circ(1-\vect{h}^{(2)})}{\vect{x}^{(2)}}\\}
+%
+\visible<4->{&=\outerp{\left(\dotpPright{\vect{W}}{\left(\grad{\vect{h}^{(3)}}{L^{(3)}}\right)\circ\vect{h}^{(3)}\circ(1-\vect{h}^{(3)})}\right)\circ\vect{h}^{(2)}\circ(1-\vect{h}^{(2)})}{\vect{x}^{(2)}}\\}
+%
+\visible<5->{&=\outerp{\left(\dotpPright{\vect{W}}{\left(\dotpPright{\vect{V}}{\hat{\vect{y}}^{(3)} - \vect{y}^{(3)}}\right)\circ\vect{h}^{(3)}\circ(1-\vect{h}^{(3)})}\right)\circ\vect{h}^{(2)}\circ(1-\vect{h}^{(2)})}{\vect{x}^{(2)}}\\}
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}{Calculating $\grad{\vect{U}^{(1)}}{L^{(3)}}$ }
+\tiny{
+\begin{align*}
+\grad{\vect{U}^{(1)}}{L^{(3)}} &=\outerp{\grad{\vect{a}^{(1)}}{L^{(3)}}}{\vect{x}^{(1)}}\\
+%
+\visible<2->{&=\outerp{\left(\grad{\vect{h}^{(1)}}{L^{(3)}}\right)\circ\vect{h}^{(1)}\circ(1-\vect{h}^{(1)})}{\vect{x}^{(1)}}\\}
+%
+\visible<3->{&=\outerp{\left(\dotpPright{\vect{W}}{\grad{\vect{a}^{(2)}}{L^{(3)}}}\right)\circ\vect{h}^{(1)}\circ(1-\vect{h}^{(1)})}{\vect{x}^{(1)}}\\}
+%
+\visible<4->{&=\outerp{\left(\dotpPright{\vect{W}}{\left(\grad{\vect{h}^{(2)}}{L^{(3)}}\right)\circ\vect{h}^{(2)}\circ(1-\vect{h}^{(2)})}\right)\circ\vect{h}^{(1)}\circ(1-\vect{h}^{(1)})}{\vect{x}^{(1)}}\\}
+%
+\visible<5->{&=\outerp{\left(\dotpPright{\vect{W}}{\left(\dotpPright{\vect{W}}{\grad{\vect{a}^{(3)}}{L^{(3)}}}\right)\circ\vect{h}^{(2)}\circ(1-\vect{h}^{(2)})}\right)\circ\vect{h}^{(1)}\circ(1-\vect{h}^{(1)})}{\vect{x}^{(1)}}\\}
+%
+\visible<6->{&=\outerp{\left(\dotpPright{\vect{W}}{\left(\dotpPright{\vect{W}}{\left(\grad{\vect{h}^{(3)}}{L^{(3)}}\right)\circ\vect{h}^{(3)}\circ(1-\vect{h}^{(3)})}\right)\circ\vect{h}^{(2)}\circ(1-\vect{h}^{(2)})}\right)\circ\vect{h}^{(1)}\circ(1-\vect{h}^{(1)})}{\vect{x}^{(1)}}\\}
+%
+\visible<7->{&=\outerp{\left(\dotpPright{\vect{W}}{\left(\dotpPright{\vect{W}}{\left(\dotpPright{\vect{V}}{\hat{\vect{y}}^{(3)} - \vect{y}^{(3)}}\right)\circ\vect{h}^{(3)}\circ(1-\vect{h}^{(3)})}\right)\circ\vect{h}^{(2)}\circ(1-\vect{h}^{(2)})}\right)\circ\vect{h}^{(1)}\circ(1-\vect{h}^{(1)})}{\vect{x}^{(1)}}\\}
+\end{align*}
+}
+\end{frame}

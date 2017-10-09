@@ -1,0 +1,61 @@
+% RNN STATE CELL ====================================
+\newcommand{\rnnSimple}[4]{
+
+% operations
+\node[state, minimum size=30pt,#4] (h#3) {$\vect{h}^{#1}$};
+\node[state, minimum size=30pt,above left=10pt and 10pt of h#3] (C#3) {$\vect{C}^{#1}$};
+\node[textonly, above right=5pt and 5pt of h#3] (inv#3) {};
+\node[op, minimum size=40pt,below=30pt of h#3] (x#3) {$\vect{x}^{#1}$};
+\node[op, minimum size=40pt, above=50pt of h#3] (yhat#3) {$\hat{\vect{y}}^{#1}$};
+
+
+%% namedscope LSTM cell
+\begin{scope}[on background layer]
+\coordinate (p1) at (inv#3.north);
+\coordinate (p2) at (h#3.south east);
+\coordinate (p3) at (C#3.north west);
+\tkzCircumCenter(p1,p2,p3)
+\tkzGetPoint{O}
+\tkzDrawCircle[draw=orange, line width=1.5pt, fill=orange!60](O,p1)
+\end{scope}
+
+
+% edges
+\path[tedge] (x#3) -- (h#3);
+\path[tedge] (h#3)-- (yhat#3);
+}
+
+\begin{figure}[ht!]
+\hspace*{-1.0cm}
+\scalebox{0.9}{
+\begin{tikzpicture}[auto]
+
+% timestep 1
+\rnnSimple{(1)}{(0)}{t1}{}
+
+% % timestep 0
+\node[state, minimum size=30pt,left=50pt of ht1] (ht0) {$\vect{h}^{(0)}$};
+\node[state, minimum size=30pt,left=17pt of Ct1] (Ct0) {$\vect{C}^{(0)}$};
+
+% % timestep 2
+\rnnSimple{(2)}{(1)}{t2}{right=50pt of ht1};
+
+
+% % timestep 2
+\rnnSimple{(3)}{(1)}{t3}{right=50pt of ht2};
+
+
+% % state transfers
+\path[tedge] (ht0) -- (ht1);
+\path[tedge] (ht1) -- (ht2);
+\path[tedge] (ht2) -- (ht3);
+\path[tedge] (Ct0) -- (Ct1);
+\path[tedge] (Ct1) -- (Ct2);
+\path[tedge] (Ct2) -- (Ct3);
+
+
+
+\end{tikzpicture}
+}%\scalebox
+\end{figure}
+
