@@ -7,11 +7,11 @@ Licensed under [creative commons](https://github.com/LIAMF-USP/TikzTemplates/blo
 
 ## Usage
 
-You can find the pdf of the presentation in the folder /src/pdf. But if you want to compile the latex file just run:
+You can find the pdf of the presentation in the folder /src/pdf. But if you want to compile (**for Ubuntu users**) the latex file just run:
 
 ```
+$ bash install.sh 
 $ cd src/
 $ make
 ```
-
 
