@@ -1,0 +1,44 @@
+\begin{figure}[ht!]
+\centering
+\scalebox{0.78}{
+\begin{tikzpicture}
+% 3x3 grid 
+\draw[opacity=0.4] (0,0) rectangle (3,3);
+\draw[draw=black,thick] (0,0) grid (3,3);
+\node (00) at (0.5,2.5) {\Large -1};
+\node (01) at (1.5,2.5) {\Large -1};
+\node (02) at (2.5,2.5) {\Large -1};
+\node (10) at (0.5,1.5) {\Large -1};
+\node (11) at (1.5,1.5) {\Large -8};
+\node (12) at (2.5,1.5) {\Large -1};
+\node (20) at (0.5,0.5) {\Large -1};
+\node (21) at (1.5,0.5) {\Large -8};
+\node (22) at (2.5,0.5) {\Large 10};
+
+
+\node[textonly, left=60pt of 20] (inv1) {};
+\node[textonly, left=2pt of 20] (inv2) {};
+
+\node[boxtextonly, below=10pt of 21] (label1) {states and\\rewards};
+\path[tedge, nephritis!60, line width=1mm] (inv1) -- (inv2);
+
+% 3x3 actions 
+\node[textonly, right=50pt of 12] (inv3) {};
+\node[textonly, right=30pt of inv3] (inv4) {};
+\node[textonly, left=30pt of inv3] (inv5) {};
+\node[textonly, above=30pt of inv3] (inv6) {};
+\node[textonly, below=30pt of inv3] (inv7) {};
+\node[textonly, right=45pt of label1] (label2) {actions};
+\path[tedge, orange!120, line width=1mm] (inv3) -- (inv4);
+\path[tedge, orange!120, line width=1mm] (inv3) -- (inv5);
+\path[tedge, orange!120, line width=1mm] (inv3) -- (inv6);
+\path[tedge, orange!120, line width=1mm] (inv3) -- (inv7);
+
+% Q table
+\node[textonly, right=5pt of inv4] (table) {$\begin{bmatrix}Q(1,\uparrow) & Q(1,\downarrow) & Q(1,\leftarrow) & Q(1,\rightarrow) \\ \vdots & \vdots & \vdots & \vdots \\Q(9,\uparrow) & Q(9,\downarrow) & Q(9,\leftarrow) & Q(9,\rightarrow)\end{bmatrix}$};
+\node[textonly, right=80pt of label2] (label3) {Q-table};
+
+
+ \end{tikzpicture}
+} % scalebox
+\end{figure}

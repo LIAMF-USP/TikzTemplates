@@ -1,0 +1,46 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{0.65}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+\begin{scope}[xshift=0cm,yshift=0cm]
+            \begin{scope}[xshift=0cm,yshift=0cm]
+            \node (x1) at (2,1.5) {\includegraphics[width=.25\textwidth]{images/frame1.png}};
+            \end{scope}
+            \begin{scope}[xshift=-0.6cm,yshift=-0.6cm]
+            \node (x2)  at (2,1.5) {\includegraphics[width=.25\textwidth]{images/frame2.png}};
+            \end{scope}
+            \begin{scope}[xshift=-1.2cm,yshift=-1.2cm]
+            \node (x3)  at (2,1.5) {\includegraphics[width=.25\textwidth]{images/frame1.png}};
+            \end{scope}  
+\end{scope}
+
+\node[op] (h2)  at (7,1) {{\LARGE$\begin{bmatrix}1.8\\1.7\\1.6\end{bmatrix}$}};
+
+\node[textonly, right=10pt of h2] (inv1) {};
+\node[op, right=60pt of h2] (f) {{\LARGE$f$}};
+\node[textonly, right=2pt of f] (inv2) {};
+
+\node[textonly, right=8pt of x2] (inv3) {};
+\node[textonly, right=55pt of inv3] (inv4) {};
+
+
+\node[textonly, right=30pt of inv2] (result) {{\LARGE$\begin{bmatrix}Q(s,a_1)\\ \vdots \\Q(s,a_n)\end{bmatrix}$}};
+
+
+
+%edges
+\path[tedge, orange!120, line width=1.5mm]  (inv1) -- (f);
+\path[tedge, orange!120, line width=1.5mm]  (inv2) -- (result);
+\path[tedge, orange!120, line width=1.5mm]  (inv3) -- (inv4);
+
+ %info
+ 
+ \node[textonly, above=85pt of h2] (inv5) {\LARGE{The pong game can have $256^{84\times84\times3}$ different states.}};
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

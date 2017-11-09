@@ -1,0 +1,63 @@
+\documentclass[10pt]{beamer}
+\usetheme{metropolis}
+% all imports
+\input{all_imports}
+
+\AtBeginEnvironment{quote}{\singlespacing}
+
+% new commands
+\input{all_new_commands}
+
+% definitions
+\input{definitions/colors}
+\input{definitions/styles}
+
+\input{header}
+
+\begin{document}
+\nocite{Sutton98a}
+
+\maketitle
+
+
+
+\begin{frame}{Artificial Intelligence}
+
+\begin{figure}[h]
+\includegraphics[width=5cm]{images/robo.jpg}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Reinforcement Learning schema}
+\input{tikzfiles/Basic_RL}
+\end{frame}
+
+\begin{frame}[fragile]{Q-learning}
+\input{tikzfiles/Tabular_RL}
+\end{frame}
+
+\begin{frame}[fragile]{RL and feature engineering}
+\input{tikzfiles/RL_hand}
+\end{frame}
+
+\begin{frame}[fragile]{Deep Q-learning}
+\input{tikzfiles/RL_deep}
+\end{frame}
+
+\begin{frame}[fragile]{Deep Q-learning}
+\input{tikzfiles/Enduro}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{Referências}
+
+  \bibliography{my_references}
+  \bibliographystyle{abbrv}
+
+\end{frame}
+
+
+
+
+\end{document}

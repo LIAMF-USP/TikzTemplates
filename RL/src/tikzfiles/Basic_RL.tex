@@ -1,0 +1,26 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.12}{
+\begin{tikzpicture}[auto]
+
+% nodes =============================
+\node  (agent) {\includegraphics[width=.15\textwidth]{images/agent.jpg}};
+\node[state, right=70pt of agent] (env) {\Large{Environment}};
+\node[textonly, above left=4.5pt and -30.0pt of env] (inv1) {};
+\node[textonly, above right=0.5pt and -30.5pt of agent] (inv2) {};
+\node[textonly, below left=4.5pt and -30.0pt of env] (inv3) {};
+\node[textonly, below right=0.5pt and -30.5pt of agent] (inv4) {};
+\node[textonly, below=-3.8pt of agent] (label) {Agent};
+
+
+
+% edges =============================
+
+\path[tedge, nephritis!60, line width=1mm] (inv2) edge [out=80,in=120] node[above right] {action} (inv1);
+\path[tedge, nephritis!60, line width=1mm] (inv3) edge [out=-120,in=-80] node[below right] {state} (inv4);
+\path[tedge, nephritis!60, line width=1mm] (env) edge node[above] {reward} (agent);
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}
