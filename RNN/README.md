@@ -3,7 +3,7 @@
 ![alt text](gifs/cc-logo.png "CC")
 
 
-Licensed under [creative commons](https://github.com/felipessalvatore/RNNpresentation/blob/master/LICENSE)
+Licensed under [creative commons](https://github.com/LIAMF-USP/TikzTemplates/blob/master/RNN/LICENSE)
 
 
 ## Usage
